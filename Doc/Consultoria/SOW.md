@@ -1,14 +1,17 @@
 # SOW: Índice de potencial de plusvalía CDMX
 
-Oct 15, 2026 · @Laura Reyes
+**Consultora:** GeoValor Analítica S.C.  
+**Cliente:** UrbanaData Consultoría Inmobiliaria (contacto: Juan Reyes)  
+**Respuesta al RFP del:** 28/09/2026  
+**Versión:** 1.0  
+**Vigencia del proyecto:** 05/10/2026 al 27/11/2026 (8 semanas)  
 
-**Consultora:** GeoValor Analítica S.C. **Cliente:** UrbanaData Consultoría Inmobiliaria (contacto: Juan Reyes) **Respuesta al RFP del:** 28/09/2026 **Versión:** 1.0 **Vigencia del proyecto:** 05/10/2026 al 27/11/2026 (8 semanas) **Equipo:**
-
-- Laura Reyes Carrillo, Lic. en Actuaría — Líder de proyecto
-- Francisco Javier Pérez Nava, Ing. en Computación — Ingeniero de datos
-- Joshua Rodríguez Zamora, Ing. en Ciencia de Datos — Científico de datos
-- Héctor Manuel Salazar Rubí, Lic. en Geografía — Analista geoespacial
-- Brenda Berenice Cornejo Díaz, Ing. en Sistemas — Analista de visualización y calidad de datos
+**Equipo:**
+- Laura Reyes Carrillo, Lic. en Actuaría — Project Manager (PM)
+- Francisco Javier Pérez Nava, Ing. en Computación — Data Engineer
+- Joshua Rodríguez Zamora, Ing. en Computación — Data Scientist / Machine Learning Engineer
+- Héctor Manuel Salazar Rubí, Ing. en Computación — GIS Developer / Backend Engineer
+- Brenda Berenice Cornejo Díaz, Ing. en Computación — Frontend Developer / QA Engineer
 
 ## 1. Resumen ejecutivo
 
@@ -19,7 +22,6 @@ UrbanaData necesita comparar colonias de la CDMX con datos y no solo con experie
 El proyecto cubre las 16 alcaldías de la CDMX con la colonia como unidad principal de análisis, siempre que haya datos públicos confiables.
 
 **Dentro de alcance:**
-
 - Inventario, evaluación y descarga de fuentes públicas (INEGI, Datos Abiertos CDMX, valores catastrales de suelo, marco geoestadístico).
 - Pipeline reproducible de ingesta, limpieza y transformación en Python.
 - Tabla de equivalencias AGEB–colonia–alcaldía para unir fuentes con distinta geografía.
@@ -31,7 +33,6 @@ El proyecto cubre las 16 alcaldías de la CDMX con la colonia como unidad princi
 - Reporte final con resultados, fuentes, criterios, supuestos y limitaciones, más los ADR del proyecto.
 
 **Fuera de alcance:**
-
 - Plataforma de compra-venta de inmuebles: el RFP la excluye; el objetivo es analítico.
 - Precio exacto de cada inmueble: los datos públicos no tienen ese detalle; estimamos a nivel colonia.
 - Recomendaciones financieras personalizadas o garantías de plusvalía: requieren asesoría regulada y el futuro del mercado es incierto.
@@ -73,8 +74,6 @@ Las seis necesidades quedan cubiertas; N2 y N5 son parciales por la poca histori
 
 Un pipeline en Python lleva los datos públicos a una base única por colonia, de donde salen el índice, el modelo y el mapa.
 
-&#91;embedded content: flujo de datos · 6 etapas\]
-
 - **Unidad geográfica: colonia.** Es como piensan los inversionistas; los datos de AGEB se reparten a colonias por intersección espacial ponderada por población (ADR-02).
 - **Variable objetivo: valor unitario de suelo catastral por colonia.** Es la única serie pública anual por colonia; el precio comercial no tiene historia abierta (ADR-03).
 - **Almacenamiento: S3 para crudos y Parquet, DuckDB para consultas SQL.** Cuesta $0 y no requiere servidor de base de datos (ADR-01).
@@ -82,7 +81,7 @@ Un pipeline en Python lleva los datos públicos a una base única por colonia, d
 - **Modelo:** regresión lineal como base explicable y Gradient Boosting como alternativa; validación temporal entrenando con años anteriores y probando con los más recientes (ADR-05).
 - **Visualización:** mapa coroplético en Folium o Streamlit, sin licencias.
 
-ADR del proyecto, en la carpeta /docs/adr del repositorio: ADR-01 Almacenamiento · ADR-02 Unidad geográfica · ADR-03 Variable objetivo · ADR-04 Método del índice · ADR-05 Modelo y validación.
+*ADR del proyecto, en la carpeta `/docs/adr` del repositorio: ADR-01 Almacenamiento · ADR-02 Unidad geográfica · ADR-03 Variable objetivo · ADR-04 Método del índice · ADR-05 Modelo y validación.*
 
 ## 6. Plan por hitos
 
@@ -96,9 +95,9 @@ Seis hitos en 8 semanas y 400 horas de equipo; cada hito cierra en viernes con r
 | 3 Indicadores e índice | E4 y E5 | Notebook de factores y ranking de colonias con pesos aprobados | 13/11/2026 | 64 |
 | 4 Modelo predictivo | E6 | Reporte de validación con MAE, RMSE y R² contra modelo base | 20/11/2026 | 72 |
 | 5 Visualización y cierre | E7 y E8 | Mapa publicado, reporte final y presentación al cliente | 27/11/2026 | 64 |
-| **Total** |  |  |  | **400** |
+| **Total** | | | | **400** |
 
-El lunes 16/11/2026 es día feriado; el hito 4 ya considera esa semana de cuatro días.
+*Nota: El lunes 16/11/2026 es día feriado; el hito 4 ya considera esa semana de cuatro días.*
 
 ## 7. Equipo y responsabilidades
 
@@ -106,18 +105,17 @@ Laura Reyes es el único punto de contacto con UrbanaData; el resto del equipo l
 
 | Rol | Nombre | Responsabilidad principal | Reporta a |
 | --- | --- | --- | --- |
-| Líder de proyecto | Laura Reyes Carrillo | Plan, riesgos, control de cambios y comunicación con el cliente | Juan Reyes (UrbanaData) |
-| Ingeniero de datos | Francisco Javier Pérez Nava | Ingesta, pipeline, almacenamiento en AWS y base consolidada | Laura Reyes |
-| Científico de datos | Joshua Rodríguez Zamora | Análisis de factores, índice y modelo predictivo | Laura Reyes |
-| Analista geoespacial | Héctor Manuel Salazar Rubí | Marco geoestadístico, equivalencias AGEB–colonia y capas del mapa | Laura Reyes |
-| Analista de visualización y calidad | Brenda Berenice Cornejo Díaz | Reporte de calidad de datos, mapa interactivo y reporte final | Laura Reyes |
+| Project Manager (PM) | Laura Reyes Carrillo | Plan, riesgos, control de cambios y comunicación con el cliente | Juan Reyes (UrbanaData) |
+| Data Engineer | Francisco Javier Pérez Nava | Ingesta, pipeline, almacenamiento en AWS y base consolidada | Laura Reyes |
+| Data Scientist / ML Engineer | Joshua Rodríguez Zamora | Análisis de factores, índice y modelo predictivo | Laura Reyes |
+| GIS Developer / Backend | Héctor Manuel Salazar Rubí | Marco geoestadístico, equivalencias AGEB–colonia y capas | Laura Reyes |
+| Frontend Developer / QA | Brenda Berenice Cornejo Díaz | Reporte de calidad de datos, mapa interactivo y reporte | Laura Reyes |
 
 ## 8. Supuestos y dependencias del cliente
 
 El plan depende de que UrbanaData apruebe pesos y entregables a tiempo y de que las fuentes públicas sigan disponibles.
 
 **Supuestos:**
-
 - Las fuentes públicas (INEGI, Datos Abiertos CDMX, valores unitarios de suelo publicados en la Gaceta Oficial) siguen accesibles y gratuitas durante el proyecto.
 - La colonia es la unidad de análisis; si en el hito 1 la cobertura no alcanza, bajamos a alcaldía o subimos a AGEB con aviso al cliente.
 - El valor catastral de suelo por colonia sirve como aproximación del valor de mercado, porque no hay una serie pública de precios comerciales por colonia.
@@ -125,20 +123,18 @@ El plan depende de que UrbanaData apruebe pesos y entregables a tiempo y de que 
 - Las cuentas de AWS Academy o la capa gratuita de AWS alcanzan para almacenamiento y cómputo.
 
 **Dependencias del cliente:**
-
 - Juan Reyes asiste a la revisión semanal de 30 minutos cada viernes.
 - Aprueba o comenta cada hito en un máximo de 3 días hábiles.
 - Valida los pesos del índice antes del 11/11/2026.
 - Comparte cualquier dato propio o criterio de inversión que quiera incluir antes del 16/10/2026.
 
 **Datos del RFP que no cuadran:**
-
 - El presupuesto máximo y el costo de operación aparecen como "/usr/bin/bash MXN"; asumimos $0 MXN, coherente con "servicios académicos gratuitos".
 - El RFP está fechado el 07/10/2026, pero el proyecto inicia el 05/10/2026; usamos 28/09/2026 como fecha de RFP y pedimos corregirla.
 - La pregunta principal habla de zonas "rentables", pero se excluyen recomendaciones financieras; interpretamos "rentable" como mayor potencial de plusvalía, sin calcular rendimientos ni rentas.
 - N2 pide historia "suficiente" y N5 no fija una meta de error; proponemos al menos 5 años de serie de valores y que el modelo supere al modelo base ingenuo.
 - El censo a nivel AGEB solo existe para 2010 y 2020, lo que limita la historia sociodemográfica a dos cortes.
-- Plazo y calendario del proceso siguen como \[dd/mm/aaaa\]; asumimos 05/10/2026 a 27/11/2026.
+- Plazo y calendario del proceso siguen como `[dd/mm/aaaa]`; asumimos 05/10/2026 a 27/11/2026.
 
 ## 9. Riesgos
 
@@ -161,15 +157,15 @@ El costo total estimado es $170,720 MXN, todo en horas de equipo; datos, licenci
 
 | Concepto | Horas | Tarifa MXN/h | Subtotal MXN |
 | --- | --- | --- | --- |
-| Líder de proyecto | 64 | 450 | 28,800 |
-| Ingeniero de datos | 88 | 400 | 35,200 |
-| Científico de datos | 88 | 400 | 35,200 |
-| Analista geoespacial | 80 | 350 | 28,000 |
-| Analista de visualización y calidad | 80 | 350 | 28,000 |
-| Subtotal equipo | 400 |  | 155,200 |
-| Colchón de imprevistos (10%) |  |  | 15,520 |
-| Costo estimado de AWS (AWS Academy / capa gratuita) |  |  | 0 |
-| **Total** |  |  | **170,720** |
+| Project Manager (PM) | 64 | 450 | 28,800 |
+| Data Engineer | 88 | 400 | 35,200 |
+| Data Scientist / ML Engineer | 88 | 400 | 35,200 |
+| GIS Developer / Backend Engineer | 80 | 350 | 28,000 |
+| Frontend Developer / QA Engineer | 80 | 350 | 28,000 |
+| Subtotal equipo | 400 | | 155,200 |
+| Colchón de imprevistos (10%) | | | 15,520 |
+| Costo estimado de AWS (AWS Academy / capa gratuita) | | | 0 |
+| **Total** | | | **170,720** |
 
 El RFP fija $0 MXN para adquisición de datos y licencias, y $0 MXN de operación mensual. Cumplimos ambos: solo usamos datos abiertos, software libre (Python, GeoPandas, DuckDB, Folium) y recursos gratuitos de AWS. El RFP no pone tope a las horas de equipo, así que no fue necesario recortar alcance.
 
@@ -178,7 +174,7 @@ El RFP fija $0 MXN para adquisición de datos y licencias, y $0 MXN de operació
 Todo cambio se pide por escrito y lo aprueban Juan Reyes y Laura Reyes antes de trabajarlo.
 
 1. El cliente envía la solicitud por correo o en el canal del proyecto, describiendo qué quiere y para qué.
-2. La líder de proyecto evalúa impacto en horas, fechas y costo en máximo 2 días hábiles.
+2. La Project Manager evalúa impacto en horas, fechas y costo en máximo 2 días hábiles.
 3. Cambios de hasta 8 horas se absorben con el colchón de imprevistos; cambios mayores se cotizan aparte o se cambian por otro elemento del alcance.
 4. Juan Reyes (UrbanaData) y Laura Reyes (GeoValor) firman la solicitud; sin firma no se trabaja.
 5. El cambio aprobado se registra en la bitácora de cambios del repositorio y, si afecta decisiones técnicas, en un ADR.
