@@ -12,11 +12,11 @@
 
 **Equipo:**
 
-* Laura Reyes Carrillo, Lic. en Actuaría — Project Manager (PM)
+* Laura Reyes Carrillo, Ing. en Computacion — Data Scientist / Machine Learning Engineer
 
 * Francisco Javier Pérez Nava, Ing. en Computación — Data Engineer
 
-* Joshua Rodríguez Zamora, Ing. en Computación — Data Scientist / Machine Learning Engineer
+* Joshua Rodríguez Zamora, Ing. en Computación — Project Manager (PM)
 
 * Héctor Manuel Salazar Rubí, Ing. en Computación — GIS Developer / Backend Engineer
 
