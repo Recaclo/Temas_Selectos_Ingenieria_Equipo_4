@@ -6,7 +6,6 @@
 
 **Respuesta al RFP del:** 28/09/2026
 
-**Versión:** 1.0
 
 **Vigencia del proyecto:** 05/10/2026 al 27/11/2026 (8 semanas)
 
