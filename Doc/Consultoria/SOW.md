@@ -4,10 +4,10 @@
 
 **Cliente:** UrbanaData Consultoría Inmobiliaria (contacto: Juan Reyes)
 
-**Respuesta al RFP del:** 28/09/2026
+**Respuesta al RFP del:** 05/28/2026
 
 
-**Vigencia del proyecto:** 05/10/2026 al 27/11/2026 (8 semanas)
+**Vigencia del proyecto:** 15/10/2026 al 27/11/2026 (6 semanas)
 
 **Equipo:**
 
