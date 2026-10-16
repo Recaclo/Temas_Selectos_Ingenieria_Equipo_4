@@ -3,7 +3,7 @@
 **Cliente:** UrbanaData Consultoría Inmobiliaria  
 **Contacto:** Juan Reyes 
 
-**Equipo redactor:** 
+**Elaborado por:** 
 
 - CORNEJO DIAZ BRENDA BERENICE
 - PEREZ NAVA FRANCISCO JAVIER
@@ -146,9 +146,9 @@ Todavía es necesario determinar:
 
 ## 6. Restricciones
 
-- **Presupuesto máximo:** /usr/bin/bash MXN para adquisición de datos y licencias.
-- **Plazo:** [Colocar fecha de entrega final].
-- **Costo de operación mensual máximo:** /usr/bin/bash MXN o limitado a servicios académicos gratuitos.
+- **Presupuesto máximo:** \$0 MXN para adquisición de datos y licencias (solo datos abiertos y software libre).
+- **Plazo:** 6 semanas, del 15/10/2026 al 27/11/2026.
+- **Costo de operación mensual máximo:** \$0 MXN; solo servicios gratuitos o académicos (por ejemplo, AWS Academy o capa gratuita de AWS).
 - **Cobertura geográfica:** Ciudad de México.
 - **Horizonte de análisis:** 5 años.
 - **Fuentes:** Se priorizarán datos abiertos y públicos.
@@ -225,11 +225,11 @@ La propuesta deberá especificar claramente qué elementos se encuentran dentro 
 
 ## 10. Calendario del proceso
 
-- **Fecha límite para preguntas:** [dd/mm/aaaa]
-- **Fecha límite para entregar propuestas:** [dd/mm/aaaa]
-- **Fecha de decisión:** [dd/mm/aaaa]
-- **Inicio estimado del proyecto:** [dd/mm/aaaa]
-- **Entrega final esperada:** [dd/mm/aaaa]
+- **Fecha límite para preguntas:** 09/10/2026
+- **Fecha límite para entregar propuestas:** 12/10/2026
+- **Fecha de decisión:** 14/10/2026
+- **Inicio estimado del proyecto:** 15/10/2026
+- **Entrega final esperada:** 27/11/2026
 
 ---
 
