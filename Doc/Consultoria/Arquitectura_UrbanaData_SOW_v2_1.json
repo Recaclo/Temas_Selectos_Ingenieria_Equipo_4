@@ -1,0 +1,329 @@
+{
+  "title": "UrbanaData | Arquitectura general - SOW v2.1",
+  "routing": "elbow",
+  "groups": [
+    {
+      "id": "sources",
+      "label": "FUENTES PÚBLICAS - CDMX",
+      "color": "rosa"
+    },
+    {
+      "id": "local",
+      "label": "PIPELINE PYTHON - EJECUCIÓN MANUAL",
+      "color": "coral"
+    },
+    {
+      "id": "aws",
+      "label": "CUENTA AWS - us-east-1",
+      "color": "menta"
+    },
+    {
+      "id": "raw",
+      "label": "S3 / raw/ - ORIGINALES INMUTABLES",
+      "color": "melocoton",
+      "parent": "aws"
+    },
+    {
+      "id": "clean",
+      "label": "S3 / clean/ - PARQUET LIMPIO",
+      "color": "limon",
+      "parent": "aws"
+    },
+    {
+      "id": "curated",
+      "label": "S3 / curated/ - PRODUCTO DE DATOS",
+      "color": "cielo",
+      "parent": "aws"
+    },
+    {
+      "id": "consume",
+      "label": "CONSULTA Y ENTREGA",
+      "color": "lila"
+    },
+    {
+      "id": "control",
+      "label": "INFRAESTRUCTURA Y CONTROL",
+      "color": "menta"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "inegi",
+      "label": "INEGI: Censos 2010 / 2020 y AGEB",
+      "type": "external",
+      "x": 40,
+      "y": 20,
+      "group": "sources"
+    },
+    {
+      "id": "cdmx",
+      "label": "Datos Abiertos CDMX: colonias y permisos",
+      "type": "external",
+      "x": 40,
+      "y": 160,
+      "group": "sources"
+    },
+    {
+      "id": "suelo",
+      "label": "Valores unitarios de suelo (Gaceta Oficial)",
+      "type": "external",
+      "x": 40,
+      "y": 300,
+      "group": "sources"
+    },
+    {
+      "id": "make",
+      "label": "make pipeline (ejecución manual)",
+      "type": "compute",
+      "x": 360,
+      "y": 120,
+      "group": "local"
+    },
+    {
+      "id": "ingesta",
+      "label": "Python: descarga e ingesta",
+      "type": "compute",
+      "x": 650,
+      "y": 120,
+      "group": "local"
+    },
+    {
+      "id": "raw",
+      "label": "Amazon S3 / raw/<fuente>/<fecha>",
+      "type": "storage",
+      "x": 950,
+      "y": 120,
+      "group": "raw",
+      "icon": "aws/s3",
+      "layer": "bronze"
+    },
+    {
+      "id": "transform",
+      "label": "Python + GeoPandas: limpieza y cruce AGEB-colonia",
+      "type": "compute",
+      "x": 1230,
+      "y": 120,
+      "group": "local"
+    },
+    {
+      "id": "clean",
+      "label": "Amazon S3 / clean/ (Parquet)",
+      "type": "storage",
+      "x": 1540,
+      "y": 120,
+      "group": "clean",
+      "icon": "aws/s3",
+      "layer": "silver"
+    },
+    {
+      "id": "quality",
+      "label": "8 reglas de calidad (R1-R8)",
+      "type": "analytics",
+      "x": 1810,
+      "y": 120,
+      "group": "local"
+    },
+    {
+      "id": "stop",
+      "label": "Falla bloqueante: detener carga y generar reporte",
+      "type": "monitor",
+      "x": 1810,
+      "y": 310,
+      "group": "local"
+    },
+    {
+      "id": "geo",
+      "label": "Validación: >=80% empate colonia / si no AGEB",
+      "type": "analytics",
+      "x": 1510,
+      "y": 330,
+      "group": "local"
+    },
+    {
+      "id": "index",
+      "label": "Índice 0-100: config/indice.yaml",
+      "type": "analytics",
+      "x": 2080,
+      "y": -40,
+      "group": "local"
+    },
+    {
+      "id": "curated",
+      "label": "S3 / curated/: colonia_anio + ranking",
+      "type": "storage",
+      "x": 2380,
+      "y": 120,
+      "group": "curated",
+      "icon": "aws/s3",
+      "layer": "gold"
+    },
+    {
+      "id": "duck",
+      "label": "DuckDB: consultas SQL",
+      "type": "db",
+      "x": 2670,
+      "y": 120,
+      "group": "consume"
+    },
+    {
+      "id": "report",
+      "label": "Reporte final + mapa estático / notebook",
+      "type": "analytics",
+      "x": 2980,
+      "y": 120,
+      "group": "consume"
+    },
+    {
+      "id": "cf",
+      "label": "CloudFormation: infra/template.yaml",
+      "type": "compute",
+      "x": 660,
+      "y": -280,
+      "group": "control"
+    },
+    {
+      "id": "iam",
+      "label": "IAM: rol mínimo del pipeline",
+      "type": "security",
+      "x": 970,
+      "y": -280,
+      "group": "control"
+    },
+    {
+      "id": "budget",
+      "label": "AWS Budgets: alerta USD 1",
+      "type": "monitor",
+      "x": 1260,
+      "y": -280,
+      "group": "control"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "inegi",
+      "to": "ingesta"
+    },
+    {
+      "id": "e2",
+      "from": "cdmx",
+      "to": "ingesta"
+    },
+    {
+      "id": "e3",
+      "from": "suelo",
+      "to": "ingesta"
+    },
+    {
+      "id": "e4",
+      "from": "make",
+      "to": "ingesta"
+    },
+    {
+      "id": "e5",
+      "from": "ingesta",
+      "to": "raw"
+    },
+    {
+      "id": "e6",
+      "from": "raw",
+      "to": "transform"
+    },
+    {
+      "id": "e7",
+      "from": "transform",
+      "to": "clean"
+    },
+    {
+      "id": "e8",
+      "from": "transform",
+      "to": "geo"
+    },
+    {
+      "id": "e9",
+      "from": "geo",
+      "to": "quality"
+    },
+    {
+      "id": "e10",
+      "from": "clean",
+      "to": "quality"
+    },
+    {
+      "id": "e11",
+      "from": "quality",
+      "to": "stop",
+      "label": "Si falla una bloqueante",
+      "color": "coral"
+    },
+    {
+      "id": "e12",
+      "from": "quality",
+      "to": "index",
+      "label": "Si pasan las bloqueantes"
+    },
+    {
+      "id": "e13",
+      "from": "index",
+      "to": "curated"
+    },
+    {
+      "id": "e14",
+      "from": "curated",
+      "to": "duck"
+    },
+    {
+      "id": "e15",
+      "from": "duck",
+      "to": "report"
+    },
+    {
+      "id": "e16",
+      "from": "cf",
+      "to": "raw",
+      "style": "optional",
+      "label": "Provisiona S3"
+    },
+    {
+      "id": "e17",
+      "from": "cf",
+      "to": "iam",
+      "style": "optional",
+      "label": "Crea rol"
+    },
+    {
+      "id": "e18",
+      "from": "cf",
+      "to": "budget",
+      "style": "optional",
+      "label": "Crea alerta"
+    },
+    {
+      "id": "e19",
+      "from": "iam",
+      "to": "ingesta",
+      "style": "optional",
+      "label": "Permisos mínimos"
+    }
+  ],
+  "notes": [
+    {
+      "id": "note1",
+      "x": 30,
+      "y": 460,
+      "w": 570,
+      "h": 95,
+      "text": "Cobertura: Miguel Hidalgo, Cuauhtémoc, Benito Juárez, Tláhuac, Xochimilco e Iztapalapa. Los datos limpios se publican sólo si pasan las reglas bloqueantes.",
+      "color": "limon"
+    },
+    {
+      "id": "note2",
+      "x": 2150,
+      "y": 350,
+      "w": 550,
+      "h": 95,
+      "text": "PRODUCTO: tabla Parquet colonia_anio, índice 0-100, ranking y consultas SQL. Sin web pública ni modelo predictivo comprometido.",
+      "color": "cielo"
+    }
+  ]
+}
